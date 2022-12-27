@@ -1,0 +1,1 @@
+part 'card_widget.dart';
