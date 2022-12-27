@@ -155,7 +155,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ).show(context);
-            } else {}
+            } else {
+              context.read<RoutesCubit>().emit(RoutesHome());
+            }
           },
           child: Text(
             'Login',

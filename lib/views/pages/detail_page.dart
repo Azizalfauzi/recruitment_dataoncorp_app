@@ -1,19 +1,23 @@
 part of 'pages.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key}) : super(key: key);
+class DetailPage extends StatefulWidget {
+  final String userName;
+  final String profileName;
+  const DetailPage({
+    Key? key,
+    required this.userName,
+    required this.profileName,
+  }) : super(key: key);
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<DetailPage> createState() => _DetailPageState();
 }
 
-class _HomePageState extends State<HomePage> {
-  Widget contentHeader() {
-    return GestureDetector(
-      onTap: () {
-        context.read<RoutesCubit>().emit(RoutesWeb());
-      },
-      child: Container(
+class _DetailPageState extends State<DetailPage> {
+  @override
+  Widget build(BuildContext context) {
+    Widget contentHeader(username, profilename) {
+      return Container(
         margin: const EdgeInsets.only(
           top: 20,
         ),
@@ -63,11 +67,11 @@ class _HomePageState extends State<HomePage> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Aziz Alfauzi',
+                          username,
                           style: blackTextStyleInter,
                         ),
                         Text(
-                          '12-Nopember-1998',
+                          profilename,
                           style: blackTextStyleInter.copyWith(
                             color: Colors.grey,
                           ),
@@ -122,84 +126,41 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-      ),
-    );
-  }
+      );
+    }
 
-  Widget content() {
-    return Container(
-      height: 500,
-      width: double.infinity,
-      child: ListView(
-        scrollDirection: Axis.vertical,
-        children: [
-          Column(
-            children: mockUser
-                .map(
-                  (e) => Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 16),
-                    child: GestureDetector(
-                      onTap: () {
-                        context
-                            .read<RoutesCubit>()
-                            .emit(RoutesDetail(e.userName, e.profileName));
-                      },
-                      child: CardUser(
-                        profileName: e.profileName,
-                        userName: e.userName,
-                      ),
-                    ),
-                  ),
-                )
-                .toList(),
-          )
-        ],
-      ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        actions: [
-          IconButton(
-              onPressed: () {
-                context.read<RoutesCubit>().emit(RoutesLogin());
-              },
-              icon: const Icon(
-                Icons.logout,
-                color: Colors.white,
-              ))
-        ],
+        leading: IconButton(
+          onPressed: () {
+            context.read<RoutesCubit>().emit(RoutesHome());
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+          ),
+        ),
         title: Text(
-          'City News',
-          style: whiteTextStyleInter.copyWith(fontSize: 20),
+          'Detail User',
+          style: whiteTextStyleInter,
         ),
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.only(
-              left: defaultMargin,
-              right: defaultMargin,
-            ),
-            child: Column(
-              children: [
-                contentHeader(),
-                content(),
-              ],
-            ),
+          padding: const EdgeInsets.only(
+            left: defaultMargin,
+            right: defaultMargin,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              contentHeader(
+                widget.userName,
+                widget.profileName,
+              ),
+            ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          // Add your onPressed code here!
-        },
-        label: const Text('Post News'),
-        icon: const Icon(Icons.thumb_up),
-        backgroundColor: Colors.teal,
       ),
     );
   }

@@ -46,7 +46,8 @@ dev_dependencies:
   shared_preferences: ^2.0.15
   another_flushbar: ^1.10.29
   double_back_to_close_app: ^2.1.0
-  equatable: ^2.0.3  
+  equatable: ^2.0.3
+  webview_flutter: ^4.0.1 
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
